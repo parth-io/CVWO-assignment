@@ -1,0 +1,27 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-cvwoassignment-dev-180013-authRole",
+      "UnauthRoleArn": "arn:aws:iam::842585766221:role/amplify-cvwoassignment-dev-180013-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::842585766221:role/amplify-cvwoassignment-dev-180013-authRole",
+      "Region": "ap-southeast-1",
+      "DeploymentBucketName": "amplify-cvwoassignment-dev-180013-deployment",
+      "UnauthRoleName": "amplify-cvwoassignment-dev-180013-unauthRole",
+      "StackName": "amplify-cvwoassignment-dev-180013",
+      "StackId": "arn:aws:cloudformation:ap-southeast-1:842585766221:stack/amplify-cvwoassignment-dev-180013/1c4b1930-76b3-11ec-853c-06291c1729c8",
+      "AmplifyAppId": "d3saygurv1bu0j",
+      "APIGatewayAuthURL": "https://s3.amazonaws.com/amplify-cvwoassignment-dev-180013-deployment/amplify-cfn-templates/api/APIGatewayAuthStack.json"
+    },
+    "categories": {
+      "auth": {
+        "cvwoassignmenta186f81c": {}
+      },
+      "function": {
+        "todo": {
+          "deploymentBucketName": "amplify-cvwoassignment-dev-180013-deployment",
+          "s3Key": "amplify-builds/todo-322b7361416a6b385a37-build.zip"
+        }
+      }
+    }
+  }
+}
