@@ -2,7 +2,7 @@ type Todo @model @auth(rules: [{allow: groups, groups: ["Unauthenticated"], oper
   id: ID!
   name: String!
   description: String
-  date: AWSDateTime
+  deadline: String
   priority: String
   completed: Boolean!
 }

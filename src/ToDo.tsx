@@ -20,15 +20,29 @@ import {
     selectAuthState
 } from './redux/userSlice'
 
-
 import '@aws-amplify/ui-react/styles.css';
 import {Button, ButtonGroup, Box, List, Collapse, ListItemText, ListItemIcon, ListItemButton} from '@mui/material';
 
-const initialState = { name: '', description: '' }
+const initialState = { name: '', description: '', completed: false }
+
+interface ToDo {
+    id: string,
+    name: string,
+    description?: string | null,
+    deadline?: string | null,
+    priority?: string | null,
+    completed: boolean,
+    createdAt: string,
+    updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+    owner?: string | null
+}
 
 export default function ToDo() {
-    let [formState, setFormState]: [any, Function] = useState(initialState)
-    let [todos, setTodos]: [any, Function] = useState([])
+    let [formState, setFormState]: [any, any] = useState(initialState)
+    let [todos, setTodos]: [any, any] = useState([])
 
     useEffect(() => {
         fetchTodos()
@@ -40,18 +54,17 @@ export default function ToDo() {
 
     async function fetchTodos() {
         try {
-            const todoData: GraphQLResult<APIGraphQL.ListTodosQuery> | Observable<Object> = await API.graphql(graphqlOperation(listTodos))
-            console.log(todoData);
-            // const todos: APIGraphQL.ListTodosQuery = todoData.data.listTodos.items
-            // setTodos(todos)
+            // : GraphQLResult<APIGraphQL.ListTodosQuery> | Observable<Object>
+            const todoData: any = await (API.graphql(graphqlOperation(listTodos)) as Promise<GraphQLResult<APIGraphQL.ListTodosQuery>>)
+            const todos: Array<ToDo> | null = todoData.data?.listTodos.items || {}
+            setTodos(todos)
         } catch (err) {
-            console.log(err)
             console.log('error fetching todos') }
     }
 
     async function addTodo() {
         try {
-            if (!formState.name || !formState.description) return
+            if (!formState.name) return
             const todo = { ...formState }
             setTodos([...todos, todo])
             setFormState(initialState)
