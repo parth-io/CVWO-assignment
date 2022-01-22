@@ -9,6 +9,7 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import InputBase from '@mui/material/InputBase';
 import MenuIcon from '@mui/icons-material/Menu';
+import { makeStyles } from '@mui/material/styles';
 import SearchIcon from '@mui/icons-material/Search';
 import {useNavigate, Outlet} from "react-router-dom";
 import { useAppSelector, useAppDispatch } from './redux/hooks'
@@ -17,6 +18,13 @@ import { authenticated,
     selectUserName,
     setUserName,
     selectAuthState } from './redux/userSlice'
+
+// const useStyles = makeStyles(theme => ({
+//     root: {
+//         boxShadow: "none",
+//         backgroundColor: "#cccccc"
+//     }
+// }));
 
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -64,6 +72,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 export default function TopBar() {
     const navigate = useNavigate();
     const userAuthState = useAppSelector(selectAuthState);
+    // const classes = useStyles();
     // const [auth, setAuth] = React.useState(false);
     return (
         <>

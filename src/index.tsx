@@ -1,6 +1,7 @@
 import ReactDOM from 'react-dom';
 import App, {Authss} from './App';
-import TopBar from './TopBar'; //todo <User />
+import TopBar from './TopBar';
+import ToDo from './ToDo'
 import reportWebVitals from './reportWebVitals';
 import {BrowserRouter, Link, Route, Routes, Outlet} from "react-router-dom";
 import { store } from './redux/store';
@@ -12,7 +13,7 @@ ReactDOM.render(
             <Routes>
                 <Route path="/app" element={<TopBar />}>
                     {/*<Route path="about" element={<About/>}/>*/}
-                    <Route path="home" element={<User />}/>
+                    <Route path="home" element={<ToDo />}/>
                 </Route>
                 <Route path="/login" element={<Authss />}/>
                 <Route path="/" element={<App />}>

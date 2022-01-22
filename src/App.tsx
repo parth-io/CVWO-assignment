@@ -40,78 +40,6 @@ import {BaseOptionChartStyle} from './components/charts/BaseOptionChart';
 
 Amplify.configure(awsExports);
 
-// const initialState = { name: '', description: '' }
-//
-// const App = () => {
-//     const [formState, setFormState] = useState(initialState)
-//     const [todos, setTodos] = useState([])
-//
-//     useEffect(() => {
-//         fetchTodos()
-//     }, [])
-//
-//     function setInput(key, value) {
-//         setFormState({ ...formState, [key]: value })
-//     }
-//
-//     async function fetchTodos() {
-//         try {
-//             const todoData = await API.graphql(graphqlOperation(listTodos))
-//             const todos = todoData.data.listTodos.items
-//             setTodos(todos)
-//         } catch (err) { console.log('error fetching todos') }
-//     }
-//
-//     async function addTodo() {
-//         try {
-//             if (!formState.name || !formState.description) return
-//             const todo = { ...formState }
-//             setTodos([...todos, todo])
-//             setFormState(initialState)
-//             await API.graphql(graphqlOperation(createTodo, {input: todo}))
-//         } catch (err) {
-//             console.log('error creating todo:', err)
-//         }
-//     }
-//
-//     return (
-//         <div style={styles.container}>
-//             <h2>Amplify Todos</h2>
-//             <input
-//                 onChange={event => setInput('name', event.target.value)}
-//                 style={styles.input}
-//                 value={formState.name}
-//                 placeholder="Name"
-//             />
-//             <input
-//                 onChange={event => setInput('description', event.target.value)}
-//                 style={styles.input}
-//                 value={formState.description}
-//                 placeholder="Description"
-//             />
-//             <button style={styles.button} onClick={addTodo}>Create Todo</button>
-//             {
-//                 todos.map((todo, index) => (
-//                     <div key={todo.id ? todo.id : index} style={styles.todo}>
-//                         <p style={styles.todoName}>{todo.name}</p>
-//                         <p style={styles.todoDescription}>{todo.description}</p>
-//                     </div>
-//                 ))
-//             }
-//         </div>
-//     )
-// }
-//
-// const styles = {
-//     container: { width: 400, margin: '0 auto', display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: 20 },
-//     todo: {  marginBottom: 15 },
-//     input: { border: 'none', backgroundColor: '#ddd', marginBottom: 10, padding: 8, fontSize: 18 },
-//     todoName: { fontSize: 20, fontWeight: 'bold' },
-//     todoDescription: { marginBottom: 0 },
-//     button: { backgroundColor: 'black', color: 'white', outline: 'none', fontSize: 18, padding: '12px 0px' }
-// }
-
-
 // export default function App() {
 //     Auth.currentCredentials()
 //         .then(d => console.log('data: ', d))
@@ -200,8 +128,23 @@ const PanelButton = styled(ButtonBase)(({theme}) => ({
         },
         '& .MuiImageMarked-root': {
             opacity: 0,
+        },
+        '& .MuiTypography-root': {
+            border: '4px solid currentColor',
         }
     }
+}));
+
+const Panel = styled('span')(({ theme }) => ({
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    color: theme.palette.common.white,
 }));
 
 const PanelBackdrop = styled('span')(({theme}) => ({
@@ -210,8 +153,18 @@ const PanelBackdrop = styled('span')(({theme}) => ({
     right: 0,
     top: 0,
     bottom: 0,
-    backgroundColor: theme.palette.common.black,
-    opacity: 0.4,
+    backgroundColor: 'blue',
+    opacity: 0.67,
+    transition: theme.transitions.create('opacity'),
+}));
+
+const PanelMarked = styled('span')(({ theme }) => ({
+    height: 3,
+    width: 18,
+    backgroundColor: theme.palette.common.white,
+    position: 'absolute',
+    bottom: -2,
+    left: 'calc(50% - 9px)',
     transition: theme.transitions.create('opacity'),
 }));
 
@@ -231,9 +184,22 @@ export default function App() {
                     }}
                 >
                     <PanelBackdrop className="MuiImageBackdrop-root"/>
-                    <Typography>
-                        {panel.title}
-                    </Typography>
+                    <Panel>
+                        <Typography
+                            component="span"
+                            variant="subtitle1"
+                            color="inherit"
+                            sx={{
+                                position: 'relative',
+                                p: 4,
+                                pt: 2,
+                                pb: (theme) => `calc(${theme.spacing(1)} + 6px)`,
+                            }}
+                        >
+                            {panel.title}
+                            <PanelMarked className="MuiImageMarked-root" />
+                        </Typography>
+                    </Panel>
                 </PanelButton>
             ))}
         </Box>
