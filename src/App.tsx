@@ -5,8 +5,23 @@ import Amplify, {API, graphqlOperation, Auth} from 'aws-amplify';
 // import { withAuthenticator } from '@aws-amplify/ui-react';
 import Router from './router-routes';
 import {Link as RouterLink, Outlet, useNavigate, Navigate} from "react-router-dom";
-import ReduxUser from './redux/User'; //todo <User />
-import { CognitoUser } from 'amazon-cognito-identity-js';
+
+import * as React from 'react';
+import {styled} from '@mui/material/styles';
+import ButtonBase from '@mui/material/ButtonBase';
+import Typography from '@mui/material/Typography';
+
+import {useAppSelector, useAppDispatch} from './redux/hooks'
+
+import {
+    authenticated,
+    unauthenticated,
+    selectUserName,
+    setUserName,
+    selectAuthState
+} from './redux/userSlice'
+
+import {CognitoUser} from 'amazon-cognito-identity-js';
 import awsExports from "./aws-exports";
 
 import '@aws-amplify/ui-react/styles.css';
@@ -95,103 +110,132 @@ Amplify.configure(awsExports);
 //     todoDescription: { marginBottom: 0 },
 //     button: { backgroundColor: 'black', color: 'white', outline: 'none', fontSize: 18, padding: '12px 0px' }
 // }
-//
-// export default withAuthenticator(App)
 
 
 // export default function App() {
 //     Auth.currentCredentials()
 //         .then(d => console.log('data: ', d))
 //         .catch(e => console.log('error: ', e))
-//
-//     return (
-//         <Authenticator variation="modal" components={components}>
-//             {({signOut, user}) => Home(user, signOut)}
-//         </Authenticator>
-//     );
 // }
 
 const Test = (props: any): JSX.Element => {
+    const dispatch = useAppDispatch();
+    const doUp = () => {
+        dispatch(authenticated());
+        dispatch(setUserName(props.user.username));
+    }
+    doUp();
     return (
-        <ReduxUser userDetails={props} />
-        // <Navigate to={"/home"} replace={true} />
+        <Navigate to={"/app/home"} replace={true}/>
     )
 }
 
 //todo fix UI styling
+//todo fix sign out button doesn't disappear/appear unless page is refreshed
 export const Authss = (): JSX.Element => {
     return (
         <Authenticator variation="modal">
             {({signOut, user}) => <Test user={user} signOut={signOut}/>}
         </Authenticator>
     )
-}// Home(user, signOut)
-
-export default function App() {
-    return (
-        <div>
-            <Box
-                sx={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    '& > *': {
-                        m: 1,
-                    },
-                }}
-            >
-                <ButtonGroup>
-                    <Button size="large" component={RouterLink} to="/home">Continue as Guest</Button>
-                    <Button size="large" component={RouterLink} to="/login">Log in/Sign up</Button>
-                </ButtonGroup>
-            </Box>
-        </div>
-// todo add to readme amplify auth, go, graphql, material UI, unauth, serviceworker, redux
-        //todo use button base
-        // <ThemeConfig>
-        //     <ScrollToTop />
-        //     <GlobalStyles />
-        //     <BaseOptionChartStyle />
-        //         <Routes>
-        //             <Route path="/" element={<HomeApp />} />
-        //             <Route path="about" element={<About />} />
-        //         </Routes>
-        // </ThemeConfig>
-    );
 }
 
-
-//
 // export default function App() {
-//     const [showResults, setShowResults] = React.useState(false);
-//     const onClick = () => setShowResults(true);
 //     return (
-//                     // <Button
-//                     //     onClick={guestClick}>
-//                     //     Carry on as Guest
-//                     // </Button>
-//                     // <div> {showResults ? <Authss/> : null} </div>
-//     )
-//     //
-//     // Auth.currentCredentials()
-//     //     .then(d => console.log('data: ', d))
-//     //     .catch(e => console.log('error: ', e))
-//
+//         <div>
+//             <Box
+//                 sx={{
+//                     display: 'flex',
+//                     flexDirection: 'column',
+//                     alignItems: 'center',
+//                     '& > *': {
+//                         m: 1,
+//                     },
+//                 }}
+//             >
+//                 <ButtonGroup>
+//                     <Button size="large" component={RouterLink} to="/app/home">Continue as Guest</Button>
+//                     <Button size="large" component={RouterLink} to="/login">Log in/Sign up</Button>
+//                 </ButtonGroup>
+//             </Box>
+//         </div>
+// todo add to readme amplify auth, go, graphql, material UI, unauth, serviceworker, redux, also when user logs in, state changes and component rerenders
+//todo use button base
+// <ThemeConfig>
+//     <ScrollToTop />
+//     <GlobalStyles />
+//     <BaseOptionChartStyle />
+//         <Routes>
+//             <Route path="/" element={<HomeApp />} />
+//             <Route path="about" element={<About />} />
+//         </Routes>
+// </ThemeConfig>
+// );
 // }
 
+const panels = [
+    {
+        title: '"I am a guest"',
+        width: '50%',
+        to: "/app/home"
+    },
+    {
+        title: '"I have an account" / "Help me create one"',
+        width: '50%',
+        to: "/login"
+    }
+];
 
-// const components = {
-//     Footer() {
-//         const {tokens} = useTheme();
-//
-//         return (
-//             <Flex justifyContent="center" gap="3rem">
-//                 <Button padding={tokens.space.large}
-//                         style={{backgroundColor: 'green', color: 'white'}}
-//                         /!*onClick={}*!/>
-//                 Or continue as a guest
-//             </Button>
-//             </Flex>
-//         );
-//     }
-// };
+const PanelButton = styled(ButtonBase)(({theme}) => ({
+    position: 'relative',
+    height: 200,
+    [theme.breakpoints.down('sm')]: {
+        width: '100% !important', // Overrides inline-style
+        height: 200,
+    },
+    '&:hover, &.Mui-focusVisible': {
+        zIndex: 1,
+        '& .MuiImageBackdrop-root': {
+            opacity: 0.15,
+        },
+        '& .MuiImageMarked-root': {
+            opacity: 0,
+        }
+    }
+}));
+
+const PanelBackdrop = styled('span')(({theme}) => ({
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0,
+    backgroundColor: theme.palette.common.black,
+    opacity: 0.4,
+    transition: theme.transitions.create('opacity'),
+}));
+
+export default function App() {
+    const navigate = useNavigate();
+    return (
+        <Box sx={{display: 'flex', flexWrap: 'wrap', minWidth: 300, height: '100%', width: '100%'}}>
+            {panels.map((panel) => (
+                <PanelButton
+                    focusRipple
+                    key={panel.title}
+                    style={{
+                        width: panel.width
+                    }}
+                    onClick={async () => {
+                        navigate(panel.to)
+                    }}
+                >
+                    <PanelBackdrop className="MuiImageBackdrop-root"/>
+                    <Typography>
+                        {panel.title}
+                    </Typography>
+                </PanelButton>
+            ))}
+        </Box>
+    );
+}
