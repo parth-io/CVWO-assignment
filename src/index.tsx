@@ -32,16 +32,6 @@ ReactDOM.render(
     document.getElementById('root')
 );
 
-
-function User(props: any) {
-    return (
-        <main style={{padding: "1rem 0"}}>
-            <h2>User</h2>
-        </main>
-    );
-
-}
-
 // let invoices = [
 //     {
 //         name: "Santa Monica",

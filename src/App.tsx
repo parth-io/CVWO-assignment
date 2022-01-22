@@ -1,5 +1,5 @@
 // import React, { useEffect, useState } from 'react';
-import Amplify, {API, graphqlOperation, Auth} from 'aws-amplify';
+import Amplify, {API, graphqlOperation, Auth, AuthModeStrategyType} from 'aws-amplify';
 // import { createTodo } from './graphql/mutations';
 // import { listTodos } from './graphql/queries';
 // import { withAuthenticator } from '@aws-amplify/ui-react';
@@ -38,7 +38,13 @@ import GlobalStyles from './theme/globalStyles';
 import ScrollToTop from './components/ScrollToTop';
 import {BaseOptionChartStyle} from './components/charts/BaseOptionChart';
 
-Amplify.configure(awsExports);
+Amplify.configure({
+    ...awsExports,
+    DataStore: {
+        authModeStrategyType: AuthModeStrategyType.MULTI_AUTH
+    }
+})
+
 
 // export default function App() {
 //     Auth.currentCredentials()

@@ -12,7 +12,7 @@ export declare class Todo {
   readonly id: string;
   readonly name: string;
   readonly description?: string;
-  readonly date?: string;
+  readonly deadline?: string;
   readonly priority?: string;
   readonly completed: boolean;
   readonly createdAt?: string;
