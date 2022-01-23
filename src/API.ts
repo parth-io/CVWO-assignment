@@ -9,6 +9,7 @@ export type CreateTodoInput = {
   deadline?: string | null,
   priority?: string | null,
   completed: boolean,
+  owner?: string | null,
   _version?: number | null,
 };
 
@@ -18,6 +19,7 @@ export type ModelTodoConditionInput = {
   deadline?: ModelStringInput | null,
   priority?: ModelStringInput | null,
   completed?: ModelBooleanInput | null,
+  owner?: ModelStringInput | null,
   and?: Array< ModelTodoConditionInput | null > | null,
   or?: Array< ModelTodoConditionInput | null > | null,
   not?: ModelTodoConditionInput | null,
@@ -78,12 +80,12 @@ export type Todo = {
   deadline?: string | null,
   priority?: string | null,
   completed: boolean,
+  owner?: string | null,
   createdAt: string,
   updatedAt: string,
   _version: number,
   _deleted?: boolean | null,
   _lastChangedAt: number,
-  owner?: string | null,
 };
 
 export type UpdateTodoInput = {
@@ -93,6 +95,7 @@ export type UpdateTodoInput = {
   deadline?: string | null,
   priority?: string | null,
   completed?: boolean | null,
+  owner?: string | null,
   _version?: number | null,
 };
 
@@ -108,6 +111,7 @@ export type ModelTodoFilterInput = {
   deadline?: ModelStringInput | null,
   priority?: ModelStringInput | null,
   completed?: ModelBooleanInput | null,
+  owner?: ModelStringInput | null,
   and?: Array< ModelTodoFilterInput | null > | null,
   or?: Array< ModelTodoFilterInput | null > | null,
   not?: ModelTodoFilterInput | null,
@@ -150,12 +154,12 @@ export type CreateTodoMutation = {
     deadline?: string | null,
     priority?: string | null,
     completed: boolean,
+    owner?: string | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
-    owner?: string | null,
   } | null,
 };
 
@@ -173,12 +177,12 @@ export type UpdateTodoMutation = {
     deadline?: string | null,
     priority?: string | null,
     completed: boolean,
+    owner?: string | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
-    owner?: string | null,
   } | null,
 };
 
@@ -196,12 +200,12 @@ export type DeleteTodoMutation = {
     deadline?: string | null,
     priority?: string | null,
     completed: boolean,
+    owner?: string | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
-    owner?: string | null,
   } | null,
 };
 
@@ -218,12 +222,12 @@ export type GetTodoQuery = {
     deadline?: string | null,
     priority?: string | null,
     completed: boolean,
+    owner?: string | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
-    owner?: string | null,
   } | null,
 };
 
@@ -244,12 +248,12 @@ export type ListTodosQuery = {
       deadline?: string | null,
       priority?: string | null,
       completed: boolean,
+      owner?: string | null,
       createdAt: string,
       updatedAt: string,
       _version: number,
       _deleted?: boolean | null,
       _lastChangedAt: number,
-      owner?: string | null,
     } | null >,
     nextToken?: string | null,
     startedAt?: number | null,
@@ -274,12 +278,12 @@ export type SyncTodosQuery = {
       deadline?: string | null,
       priority?: string | null,
       completed: boolean,
+      owner?: string | null,
       createdAt: string,
       updatedAt: string,
       _version: number,
       _deleted?: boolean | null,
       _lastChangedAt: number,
-      owner?: string | null,
     } | null >,
     nextToken?: string | null,
     startedAt?: number | null,
@@ -299,12 +303,12 @@ export type OnCreateTodoSubscription = {
     deadline?: string | null,
     priority?: string | null,
     completed: boolean,
+    owner?: string | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
-    owner?: string | null,
   } | null,
 };
 
@@ -321,12 +325,12 @@ export type OnUpdateTodoSubscription = {
     deadline?: string | null,
     priority?: string | null,
     completed: boolean,
+    owner?: string | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
-    owner?: string | null,
   } | null,
 };
 
@@ -343,11 +347,11 @@ export type OnDeleteTodoSubscription = {
     deadline?: string | null,
     priority?: string | null,
     completed: boolean,
+    owner?: string | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
-    owner?: string | null,
   } | null,
 };

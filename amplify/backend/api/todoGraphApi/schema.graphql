@@ -5,4 +5,5 @@ type Todo @model @auth(rules: [{allow: groups, groups: ["Unauthenticated"], oper
   deadline: String
   priority: String
   completed: Boolean!
+  owner: String
 }

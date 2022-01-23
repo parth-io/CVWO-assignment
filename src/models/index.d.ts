@@ -15,6 +15,7 @@ export declare class Todo {
   readonly deadline?: string;
   readonly priority?: string;
   readonly completed: boolean;
+  readonly owner?: string;
   readonly createdAt?: string;
   readonly updatedAt?: string;
   constructor(init: ModelInit<Todo, TodoMetaData>);

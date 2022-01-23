@@ -11,12 +11,12 @@ export const getTodo = /* GraphQL */ `
       deadline
       priority
       completed
+      owner
       createdAt
       updatedAt
       _version
       _deleted
       _lastChangedAt
-      owner
     }
   }
 `;
@@ -34,12 +34,12 @@ export const listTodos = /* GraphQL */ `
         deadline
         priority
         completed
+        owner
         createdAt
         updatedAt
         _version
         _deleted
         _lastChangedAt
-        owner
       }
       nextToken
       startedAt
@@ -66,12 +66,12 @@ export const syncTodos = /* GraphQL */ `
         deadline
         priority
         completed
+        owner
         createdAt
         updatedAt
         _version
         _deleted
         _lastChangedAt
-        owner
       }
       nextToken
       startedAt

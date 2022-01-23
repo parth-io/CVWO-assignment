@@ -1,16 +1,16 @@
 import Amplify, {API, graphqlOperation, Auth} from 'aws-amplify';
 import type { GraphQLResult } from '@aws-amplify/api-graphql';
 import type Observable from 'zen-observable-ts';
-import { createTodo } from './graphql/mutations';
-import { listTodos } from './graphql/queries';
-import * as APIGraphQL from './API'
+import { createTodo } from '../graphql/mutations';
+import { listTodos } from '../graphql/queries';
+import * as APIGraphQL from '../API'
 
 import { useState, useEffect } from 'react';
 import {styled} from '@mui/material/styles';
 import ButtonBase from '@mui/material/ButtonBase';
 import Typography from '@mui/material/Typography';
 
-import {useAppSelector, useAppDispatch} from './redux/hooks'
+import {useAppSelector, useAppDispatch} from '../redux/hooks'
 
 import {
     authenticated,
@@ -18,12 +18,12 @@ import {
     selectUserName,
     setUserName,
     selectAuthState
-} from './redux/userSlice'
+} from '../redux/userSlice'
 
 import '@aws-amplify/ui-react/styles.css';
 import {Button, ButtonGroup, Box, List, Collapse, ListItemText, ListItemIcon, ListItemButton} from '@mui/material';
 
-const initialState = { name: '', description: '', completed: false }
+let initialState = { name: '', description: '', completed: false, owner: "" }
 
 interface ToDo {
     id: string,
@@ -40,10 +40,12 @@ interface ToDo {
     owner?: string | null
 }
 
-export default function ToDo() {
+export default function MainLayout() {
     let [formState, setFormState]: [any, any] = useState(initialState)
     let [todos, setTodos]: [any, any] = useState([])
-
+    const userNameState = useAppSelector(selectUserName);
+    console.log(initialState);
+    console.log(userNameState)
     useEffect(() => {
         fetchTodos()
     }, [])
@@ -57,6 +59,7 @@ export default function ToDo() {
             // : GraphQLResult<APIGraphQL.ListTodosQuery> | Observable<Object>
             const todoData: any = await (API.graphql(graphqlOperation(listTodos)) as Promise<GraphQLResult<APIGraphQL.ListTodosQuery>>)
             const todos: Array<ToDo> | null = todoData.data?.listTodos.items || {}
+            console.log(todos)
             setTodos(todos)
         } catch (err) {
             console.log('error fetching todos') }

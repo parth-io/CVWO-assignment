@@ -35,8 +35,8 @@ import {Button, ButtonGroup, Box, List, Collapse, ListItemText, ListItemIcon, Li
 import ThemeConfig from './theme';
 import GlobalStyles from './theme/globalStyles';
 // components
-import ScrollToTop from './components/ScrollToTop';
-import {BaseOptionChartStyle} from './components/charts/BaseOptionChart';
+// import ScrollToTop from './components/ScrollToTop';
+// import {BaseOptionChartStyle} from './components/charts/BaseOptionChart';
 
 Amplify.configure({
     ...awsExports,
@@ -51,28 +51,6 @@ Amplify.configure({
 //         .then(d => console.log('data: ', d))
 //         .catch(e => console.log('error: ', e))
 // }
-
-const Test = (props: any): JSX.Element => {
-    const dispatch = useAppDispatch();
-    const doUp = () => {
-        dispatch(authenticated());
-        dispatch(setUserName(props.user.username));
-    }
-    doUp();
-    return (
-        <Navigate to={"/app/home"} replace={true}/>
-    )
-}
-
-//todo fix UI styling
-//todo fix sign out button doesn't disappear/appear unless page is refreshed
-export const Authss = (): JSX.Element => {
-    return (
-        <Authenticator variation="modal">
-            {({signOut, user}) => <Test user={user} signOut={signOut}/>}
-        </Authenticator>
-    )
-}
 
 // export default function App() {
 //     return (
@@ -111,7 +89,7 @@ const panels = [
     {
         title: '"I am a guest"',
         width: '50%',
-        to: "/app/home"
+        to: "/guest/login"
     },
     {
         title: '"I have an account" / "Help me create one"',

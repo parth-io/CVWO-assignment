@@ -12,12 +12,12 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { makeStyles } from '@mui/material/styles';
 import SearchIcon from '@mui/icons-material/Search';
 import {useNavigate, Outlet} from "react-router-dom";
-import { useAppSelector, useAppDispatch } from './redux/hooks'
+import { useAppSelector, useAppDispatch } from '../redux/hooks'
 import { authenticated,
     unauthenticated,
     selectUserName,
     setUserName,
-    selectAuthState } from './redux/userSlice'
+    selectAuthState } from '../redux/userSlice'
 
 // const useStyles = makeStyles(theme => ({
 //     root: {
@@ -110,7 +110,7 @@ export default function TopBar() {
                             color="inherit"
                             onClick={async () => {
                                 await Auth.signOut()
-                                navigate("/")
+                                navigate("/logout")
                             }}>Sign Out
                         </Button> : null} </div>
                     </Toolbar>

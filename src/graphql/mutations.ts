@@ -14,12 +14,12 @@ export const createTodo = /* GraphQL */ `
       deadline
       priority
       completed
+      owner
       createdAt
       updatedAt
       _version
       _deleted
       _lastChangedAt
-      owner
     }
   }
 `;
@@ -35,12 +35,12 @@ export const updateTodo = /* GraphQL */ `
       deadline
       priority
       completed
+      owner
       createdAt
       updatedAt
       _version
       _deleted
       _lastChangedAt
-      owner
     }
   }
 `;
@@ -56,12 +56,12 @@ export const deleteTodo = /* GraphQL */ `
       deadline
       priority
       completed
+      owner
       createdAt
       updatedAt
       _version
       _deleted
       _lastChangedAt
-      owner
     }
   }
 `;
