@@ -1,42 +1,16 @@
-// import React, { useEffect, useState } from 'react';
 import Amplify, {API, graphqlOperation, Auth, AuthModeStrategyType} from 'aws-amplify';
-// import { createTodo } from './graphql/mutations';
-// import { listTodos } from './graphql/queries';
-// import { withAuthenticator } from '@aws-amplify/ui-react';
-import Router from './router-routes';
-import {Link as RouterLink, Outlet, useNavigate, Navigate} from "react-router-dom";
-
+import {useNavigate} from "react-router-dom";
 import * as React from 'react';
 import {styled} from '@mui/material/styles';
 import ButtonBase from '@mui/material/ButtonBase';
 import Typography from '@mui/material/Typography';
-
-import {useAppSelector, useAppDispatch} from './redux/hooks'
-
-import {
-    authenticated,
-    unauthenticated,
-    selectUserName,
-    setUserName,
-    selectAuthState
-} from './redux/userSlice'
-
-import {CognitoUser} from 'amazon-cognito-identity-js';
 import awsExports from "./aws-exports";
-
 import '@aws-amplify/ui-react/styles.css';
-import {Authenticator} from '@aws-amplify/ui-react';
-// import Home from "./layouts/home";
-import HomeApp from './pages/HomeApp';
-import User from './pages/User';
 import {Button, ButtonGroup, Box, List, Collapse, ListItemText, ListItemIcon, ListItemButton} from '@mui/material';
-
+// import AWS from 'aws-sdk'
 // theme
 import ThemeConfig from './theme';
 import GlobalStyles from './theme/globalStyles';
-// components
-// import ScrollToTop from './components/ScrollToTop';
-// import {BaseOptionChartStyle} from './components/charts/BaseOptionChart';
 
 Amplify.configure({
     ...awsExports,
@@ -44,33 +18,8 @@ Amplify.configure({
         authModeStrategyType: AuthModeStrategyType.MULTI_AUTH
     }
 })
+// AWS.config.correctClockSkew = true
 
-
-// export default function App() {
-//     Auth.currentCredentials()
-//         .then(d => console.log('data: ', d))
-//         .catch(e => console.log('error: ', e))
-// }
-
-// export default function App() {
-//     return (
-//         <div>
-//             <Box
-//                 sx={{
-//                     display: 'flex',
-//                     flexDirection: 'column',
-//                     alignItems: 'center',
-//                     '& > *': {
-//                         m: 1,
-//                     },
-//                 }}
-//             >
-//                 <ButtonGroup>
-//                     <Button size="large" component={RouterLink} to="/app/home">Continue as Guest</Button>
-//                     <Button size="large" component={RouterLink} to="/login">Log in/Sign up</Button>
-//                 </ButtonGroup>
-//             </Box>
-//         </div>
 // todo add to readme amplify auth, go, graphql, material UI, unauth, serviceworker, redux, also when user logs in, state changes and component rerenders
 //todo use button base
 // <ThemeConfig>

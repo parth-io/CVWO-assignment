@@ -1,13 +1,18 @@
-import {useAppDispatch} from "../redux/hooks";
-import {authenticated, setUserName} from "../redux/userSlice";
+import {useAppDispatch, useAppSelector} from "../redux/hooks";
+import {authenticated, selectUserName, setUserName} from "../redux/userSlice";
 import {Navigate} from "react-router-dom";
 import {Authenticator} from "@aws-amplify/ui-react";
-import * as React from "react";
+import GetAuth from './GetAuth';
 
 const DoAuth = (props: any): JSX.Element => {
     const dispatch = useAppDispatch();
     dispatch(authenticated());
-    dispatch(setUserName(props.user.username));
+    dispatch(setUserName(props.username));
+    // console.log(props.username)
+    // console.log("Next")
+    // const userName = useAppSelector(selectUserName);
+    // console.log(userName)
+    // console.log("Done")
     return (
         <Navigate to={"/app/home"} replace={true}/>
     )
@@ -18,7 +23,7 @@ const DoAuth = (props: any): JSX.Element => {
 const Authenticate = (): JSX.Element => {
     return (
         <Authenticator variation="modal">
-            {({signOut, user}) => <DoAuth user={user} signOut={signOut}/>}
+            {({signOut, user}) => <GetAuth component={DoAuth}></GetAuth>}
         </Authenticator>
     )
 }

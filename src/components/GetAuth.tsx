@@ -6,9 +6,8 @@ const GetAuth = (props: any): JSX.Element => {
     useEffect(
         () => {
             async function getUserName() {
-                const temp = await Auth.currentCredentials()
-                const rname = temp.accessKeyId;
-                setUsername(rname)
+                const temp = await Auth.currentCredentials();
+                setUsername(temp.accessKeyId);
             }
             getUserName()
         }, []

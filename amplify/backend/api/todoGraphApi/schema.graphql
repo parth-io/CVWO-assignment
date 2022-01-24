@@ -1,9 +1,15 @@
-type Todo @model @auth(rules: [{allow: groups, groups: ["Unauthenticated"], operations: [read, create, update, delete]}, {allow: owner}, {allow: private}, {allow: private, provider: iam}, {allow: public, provider: iam}, {allow: public}]) {
+type User @model @auth(rules: [{allow: groups, groups: ["Unauthenticated"], operations: [read, create, update, delete]}, {allow: owner}, {allow: private}, {allow: private, provider: iam}, {allow: public, provider: iam}, {allow: public}]) {
+#  id: ID! @primaryKey(sortKeyFields: ["user"])
+  user: String! @primaryKey
+  todos: [Todo] @hasMany
+}
+
+type Todo @model @searchable @auth(rules: [{allow: groups, groups: ["Unauthenticated"], operations: [read, create, update, delete]}, {allow: owner}, {allow: private}, {allow: private, provider: iam}, {allow: public, provider: iam}, {allow: public}]) {
   id: ID!
   name: String!
   description: String
   deadline: String
   priority: String
   completed: Boolean!
-  owner: String
+  user: User @belongsTo
 }
