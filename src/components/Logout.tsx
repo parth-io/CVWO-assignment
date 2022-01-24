@@ -8,7 +8,7 @@ const DoAuth = (props: any): JSX.Element => {
     dispatch(unauthenticated());
     dispatch(setUserName(props.username));
     return (
-        <Navigate to={"/app/home"} replace={true}/>
+        <Navigate to={"/"} replace={true}/>
     )
 }
 

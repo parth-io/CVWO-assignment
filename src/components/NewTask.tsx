@@ -7,9 +7,24 @@ import DialogTitle from '@mui/material/DialogTitle';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import Grid from '@mui/material/Grid';
-import { useState, MouseEvent } from 'react';
+import {useState, MouseEvent} from 'react';
+import {API, graphqlOperation} from "aws-amplify";
+import {createTodo} from "../graphql/mutations";
+import {useAppSelector} from "../redux/hooks";
+import {selectUserName} from "../redux/userSlice";
+import {Todo} from '../API';
+import { nanoid } from 'nanoid';
 
-function PriorityGroup() {
+interface priorityFunction {
+    setPriority(priority: string): void
+}
+
+interface todosState {
+    setTodos(todos: Array<Todo>): void
+    todos: Array<Todo>
+}
+
+function PriorityGroup(props: priorityFunction) {
     const [alignment, setAlignment] = useState<string | null>('normal');
 
     const handleAlignment = (
@@ -17,6 +32,11 @@ function PriorityGroup() {
         newAlignment: string | null,
     ) => {
         setAlignment(newAlignment);
+        if (newAlignment == null) {
+            props.setPriority('normal');
+        } else {
+            props.setPriority(newAlignment);
+        }
     };
 
     return (
@@ -32,7 +52,10 @@ function PriorityGroup() {
     );
 }
 
-export default function NewTask() {
+export default function NewTask(props: todosState) {
+    const userName = useAppSelector(selectUserName);
+    const initialState = {name: '', description: '', completed: false, userID: userName, priority: 'normal', deadline: ''}
+    let [formState, setFormState]: [any, any] = useState(initialState)
     const [open, setOpen] = useState(false);
 
     const handleClickOpen = () => {
@@ -43,13 +66,30 @@ export default function NewTask() {
         setOpen(false);
     };
 
-    const handleSubmit = () => {
-        setOpen(false);
+    function setPriority(priority: string) {
+        setFormState({...formState, ['priority']: priority})
+    }
+
+    function setInput(key: string, value: string) {
+        setFormState({...formState, [key]: value})
+    }
+
+    const handleSubmit = async () => {
+        try {
+            const todo = {...formState, id: nanoid()}
+            await API.graphql(graphqlOperation(createTodo, {input: todo}))
+            const allTodos = props.todos
+            props.setTodos([...allTodos, todo])
+            setFormState(initialState)
+            setOpen(false);
+        } catch (err: any) {
+            console.log('error creating todo:', err.errors[0].message)
+        }
     };
 
     return (
         <Grid
-              display="flex" justifyContent="center"
+            display="flex" justifyContent="center"
         >
             <Button variant="outlined" onClick={handleClickOpen}>
                 Create a new task
@@ -63,8 +103,10 @@ export default function NewTask() {
                         id="name"
                         label="Task Name"
                         type="text"
+                        required={true}
                         fullWidth
                         variant="standard"
+                        onChange={(event) => setInput('name', event.target.value)}
                     />
                     <TextField
                         autoFocus
@@ -74,21 +116,23 @@ export default function NewTask() {
                         type="text"
                         fullWidth
                         variant="standard"
+                        onChange={(event) => setInput('description', event.target.value)}
                     />
                     <TextField
                         autoFocus
                         margin="normal"
-                        id="date"
-                        label="Date"
+                        id="deadline"
+                        label="Deadline"
                         type="date"
                         fullWidth
                         variant="standard"
+                        onChange={(event) => setInput('deadline', String(event.target.value))}
                     />
-                    <PriorityGroup />
+                    <PriorityGroup setPriority={setPriority}/>
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose}>Cancel</Button>
-                    <Button onClick={handleSubmit}>Create</Button>
+                    <Button onClick={async () => await handleSubmit()}>Create</Button>
                 </DialogActions>
             </Dialog>
         </Grid>

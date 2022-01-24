@@ -7,7 +7,8 @@ const GetAuth = (props: any): JSX.Element => {
         () => {
             async function getUserName() {
                 const temp = await Auth.currentCredentials();
-                setUsername(temp.accessKeyId);
+                // console.log(temp)
+                setUsername(temp.identityId);
             }
             getUserName()
         }, []

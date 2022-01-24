@@ -40,13 +40,13 @@ export type Todo = {
   deadline?: string | null,
   priority?: string | null,
   completed: boolean,
+  userID: string,
   user?: User | null,
   createdAt: string,
   updatedAt: string,
   _version: number,
   _deleted?: boolean | null,
   _lastChangedAt: number,
-  userTodosId?: string | null,
   owner?: string | null,
 };
 
@@ -67,8 +67,8 @@ export type CreateTodoInput = {
   deadline?: string | null,
   priority?: string | null,
   completed: boolean,
+  userID: string,
   _version?: number | null,
-  userTodosId?: string | null,
 };
 
 export type ModelTodoConditionInput = {
@@ -77,10 +77,10 @@ export type ModelTodoConditionInput = {
   deadline?: ModelStringInput | null,
   priority?: ModelStringInput | null,
   completed?: ModelBooleanInput | null,
+  userID?: ModelStringInput | null,
   and?: Array< ModelTodoConditionInput | null > | null,
   or?: Array< ModelTodoConditionInput | null > | null,
   not?: ModelTodoConditionInput | null,
-  userTodosId?: ModelIDInput | null,
 };
 
 export type ModelStringInput = {
@@ -130,22 +130,6 @@ export type ModelBooleanInput = {
   attributeType?: ModelAttributeTypes | null,
 };
 
-export type ModelIDInput = {
-  ne?: string | null,
-  eq?: string | null,
-  le?: string | null,
-  lt?: string | null,
-  ge?: string | null,
-  gt?: string | null,
-  contains?: string | null,
-  notContains?: string | null,
-  between?: Array< string | null > | null,
-  beginsWith?: string | null,
-  attributeExists?: boolean | null,
-  attributeType?: ModelAttributeTypes | null,
-  size?: ModelSizeInput | null,
-};
-
 export type UpdateTodoInput = {
   id: string,
   name?: string | null,
@@ -153,8 +137,8 @@ export type UpdateTodoInput = {
   deadline?: string | null,
   priority?: string | null,
   completed?: boolean | null,
+  userID?: string | null,
   _version?: number | null,
-  userTodosId?: string | null,
 };
 
 export type DeleteTodoInput = {
@@ -189,10 +173,26 @@ export type ModelTodoFilterInput = {
   deadline?: ModelStringInput | null,
   priority?: ModelStringInput | null,
   completed?: ModelBooleanInput | null,
+  userID?: ModelStringInput | null,
   and?: Array< ModelTodoFilterInput | null > | null,
   or?: Array< ModelTodoFilterInput | null > | null,
   not?: ModelTodoFilterInput | null,
-  userTodosId?: ModelIDInput | null,
+};
+
+export type ModelIDInput = {
+  ne?: string | null,
+  eq?: string | null,
+  le?: string | null,
+  lt?: string | null,
+  ge?: string | null,
+  gt?: string | null,
+  contains?: string | null,
+  notContains?: string | null,
+  between?: Array< string | null > | null,
+  beginsWith?: string | null,
+  attributeExists?: boolean | null,
+  attributeType?: ModelAttributeTypes | null,
+  size?: ModelSizeInput | null,
 };
 
 export type SearchableTodoFilterInput = {
@@ -202,12 +202,12 @@ export type SearchableTodoFilterInput = {
   deadline?: SearchableStringFilterInput | null,
   priority?: SearchableStringFilterInput | null,
   completed?: SearchableBooleanFilterInput | null,
+  userID?: SearchableStringFilterInput | null,
   createdAt?: SearchableStringFilterInput | null,
   updatedAt?: SearchableStringFilterInput | null,
   _version?: SearchableIntFilterInput | null,
   _deleted?: SearchableBooleanFilterInput | null,
   _lastChangedAt?: SearchableIntFilterInput | null,
-  userTodosId?: SearchableIDFilterInput | null,
   and?: Array< SearchableTodoFilterInput | null > | null,
   or?: Array< SearchableTodoFilterInput | null > | null,
   not?: SearchableTodoFilterInput | null,
@@ -274,12 +274,12 @@ export enum SearchableTodoSortableFields {
   deadline = "deadline",
   priority = "priority",
   completed = "completed",
+  userID = "userID",
   createdAt = "createdAt",
   updatedAt = "updatedAt",
   _version = "_version",
   _deleted = "_deleted",
   _lastChangedAt = "_lastChangedAt",
-  userTodosId = "userTodosId",
 }
 
 
@@ -311,12 +311,12 @@ export enum SearchableTodoAggregateField {
   deadline = "deadline",
   priority = "priority",
   completed = "completed",
+  userID = "userID",
   createdAt = "createdAt",
   updatedAt = "updatedAt",
   _version = "_version",
   _deleted = "_deleted",
   _lastChangedAt = "_lastChangedAt",
-  userTodosId = "userTodosId",
 }
 
 
@@ -436,6 +436,7 @@ export type CreateTodoMutation = {
     deadline?: string | null,
     priority?: string | null,
     completed: boolean,
+    userID: string,
     user?:  {
       __typename: "User",
       user: string,
@@ -451,7 +452,6 @@ export type CreateTodoMutation = {
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
-    userTodosId?: string | null,
     owner?: string | null,
   } | null,
 };
@@ -470,6 +470,7 @@ export type UpdateTodoMutation = {
     deadline?: string | null,
     priority?: string | null,
     completed: boolean,
+    userID: string,
     user?:  {
       __typename: "User",
       user: string,
@@ -485,7 +486,6 @@ export type UpdateTodoMutation = {
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
-    userTodosId?: string | null,
     owner?: string | null,
   } | null,
 };
@@ -504,6 +504,7 @@ export type DeleteTodoMutation = {
     deadline?: string | null,
     priority?: string | null,
     completed: boolean,
+    userID: string,
     user?:  {
       __typename: "User",
       user: string,
@@ -519,7 +520,6 @@ export type DeleteTodoMutation = {
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
-    userTodosId?: string | null,
     owner?: string | null,
   } | null,
 };
@@ -610,6 +610,7 @@ export type GetTodoQuery = {
     deadline?: string | null,
     priority?: string | null,
     completed: boolean,
+    userID: string,
     user?:  {
       __typename: "User",
       user: string,
@@ -625,7 +626,6 @@ export type GetTodoQuery = {
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
-    userTodosId?: string | null,
     owner?: string | null,
   } | null,
 };
@@ -647,12 +647,12 @@ export type ListTodosQuery = {
       deadline?: string | null,
       priority?: string | null,
       completed: boolean,
+      userID: string,
       createdAt: string,
       updatedAt: string,
       _version: number,
       _deleted?: boolean | null,
       _lastChangedAt: number,
-      userTodosId?: string | null,
       owner?: string | null,
     } | null >,
     nextToken?: string | null,
@@ -678,12 +678,12 @@ export type SyncTodosQuery = {
       deadline?: string | null,
       priority?: string | null,
       completed: boolean,
+      userID: string,
       createdAt: string,
       updatedAt: string,
       _version: number,
       _deleted?: boolean | null,
       _lastChangedAt: number,
-      userTodosId?: string | null,
       owner?: string | null,
     } | null >,
     nextToken?: string | null,
@@ -711,12 +711,12 @@ export type SearchTodosQuery = {
       deadline?: string | null,
       priority?: string | null,
       completed: boolean,
+      userID: string,
       createdAt: string,
       updatedAt: string,
       _version: number,
       _deleted?: boolean | null,
       _lastChangedAt: number,
-      userTodosId?: string | null,
       owner?: string | null,
     } | null >,
     nextToken?: string | null,
@@ -819,6 +819,7 @@ export type OnCreateTodoSubscription = {
     deadline?: string | null,
     priority?: string | null,
     completed: boolean,
+    userID: string,
     user?:  {
       __typename: "User",
       user: string,
@@ -834,7 +835,6 @@ export type OnCreateTodoSubscription = {
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
-    userTodosId?: string | null,
     owner?: string | null,
   } | null,
 };
@@ -852,6 +852,7 @@ export type OnUpdateTodoSubscription = {
     deadline?: string | null,
     priority?: string | null,
     completed: boolean,
+    userID: string,
     user?:  {
       __typename: "User",
       user: string,
@@ -867,7 +868,6 @@ export type OnUpdateTodoSubscription = {
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
-    userTodosId?: string | null,
     owner?: string | null,
   } | null,
 };
@@ -885,6 +885,7 @@ export type OnDeleteTodoSubscription = {
     deadline?: string | null,
     priority?: string | null,
     completed: boolean,
+    userID: string,
     user?:  {
       __typename: "User",
       user: string,
@@ -900,7 +901,6 @@ export type OnDeleteTodoSubscription = {
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
-    userTodosId?: string | null,
     owner?: string | null,
   } | null,
 };

@@ -62,6 +62,7 @@ export const onCreateTodo = /* GraphQL */ `
       deadline
       priority
       completed
+      userID
       user {
         user
         createdAt
@@ -76,7 +77,6 @@ export const onCreateTodo = /* GraphQL */ `
       _version
       _deleted
       _lastChangedAt
-      userTodosId
       owner
     }
   }
@@ -90,6 +90,7 @@ export const onUpdateTodo = /* GraphQL */ `
       deadline
       priority
       completed
+      userID
       user {
         user
         createdAt
@@ -104,7 +105,6 @@ export const onUpdateTodo = /* GraphQL */ `
       _version
       _deleted
       _lastChangedAt
-      userTodosId
       owner
     }
   }
@@ -118,6 +118,7 @@ export const onDeleteTodo = /* GraphQL */ `
       deadline
       priority
       completed
+      userID
       user {
         user
         createdAt
@@ -132,7 +133,6 @@ export const onDeleteTodo = /* GraphQL */ `
       _version
       _deleted
       _lastChangedAt
-      userTodosId
       owner
     }
   }

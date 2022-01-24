@@ -84,6 +84,7 @@ export const getTodo = /* GraphQL */ `
       deadline
       priority
       completed
+      userID
       user {
         user
         createdAt
@@ -98,7 +99,6 @@ export const getTodo = /* GraphQL */ `
       _version
       _deleted
       _lastChangedAt
-      userTodosId
       owner
     }
   }
@@ -117,12 +117,12 @@ export const listTodos = /* GraphQL */ `
         deadline
         priority
         completed
+        userID
         createdAt
         updatedAt
         _version
         _deleted
         _lastChangedAt
-        userTodosId
         owner
       }
       nextToken
@@ -150,12 +150,12 @@ export const syncTodos = /* GraphQL */ `
         deadline
         priority
         completed
+        userID
         createdAt
         updatedAt
         _version
         _deleted
         _lastChangedAt
-        userTodosId
         owner
       }
       nextToken
@@ -187,12 +187,12 @@ export const searchTodos = /* GraphQL */ `
         deadline
         priority
         completed
+        userID
         createdAt
         updatedAt
         _version
         _deleted
         _lastChangedAt
-        userTodosId
         owner
       }
       nextToken

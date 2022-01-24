@@ -28,7 +28,7 @@ export const schema = {
                     "isArrayNullable": true,
                     "association": {
                         "connectionType": "HAS_MANY",
-                        "associatedWith": "userTodosId"
+                        "associatedWith": "user"
                     }
                 },
                 "createdAt": {
@@ -191,7 +191,7 @@ export const schema = {
                     "attributes": [],
                     "association": {
                         "connectionType": "BELONGS_TO",
-                        "targetName": "userTodosId"
+                        "targetName": "userID"
                     }
                 },
                 "createdAt": {
@@ -221,6 +221,15 @@ export const schema = {
                 {
                     "type": "searchable",
                     "properties": {}
+                },
+                {
+                    "type": "key",
+                    "properties": {
+                        "name": "byUser",
+                        "fields": [
+                            "userID"
+                        ]
+                    }
                 },
                 {
                     "type": "auth",
@@ -298,5 +307,5 @@ export const schema = {
     },
     "enums": {},
     "nonModels": {},
-    "version": "76f8837b2bb02ad544741308a75a5086"
+    "version": "4b4be75f4574c71045a2f051794b0edb"
 };

@@ -1,7 +1,7 @@
 type User @model @auth(rules: [{allow: groups, groups: ["Unauthenticated"], operations: [read, create, update, delete]}, {allow: owner}, {allow: private}, {allow: private, provider: iam}, {allow: public, provider: iam}, {allow: public}]) {
 #  id: ID! @primaryKey(sortKeyFields: ["user"])
   user: String! @primaryKey
-  todos: [Todo] @hasMany
+  todos: [Todo] @hasMany(indexName: "byUser", fields: ["user"])
 }
 
 type Todo @model @searchable @auth(rules: [{allow: groups, groups: ["Unauthenticated"], operations: [read, create, update, delete]}, {allow: owner}, {allow: private}, {allow: private, provider: iam}, {allow: public, provider: iam}, {allow: public}]) {
@@ -11,5 +11,6 @@ type Todo @model @searchable @auth(rules: [{allow: groups, groups: ["Unauthentic
   deadline: String
   priority: String
   completed: Boolean!
-  user: User @belongsTo
+  userID: String! @index(name: "byUser")
+  user: User @belongsTo(fields: ["userID"])
 }

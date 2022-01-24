@@ -23,7 +23,11 @@ const DoAuth = (props: any): JSX.Element => {
 const Authenticate = (): JSX.Element => {
     return (
         <Authenticator variation="modal">
-            {({signOut, user}) => <GetAuth component={DoAuth}></GetAuth>}
+            {({signOut, user}) => {
+                console.log("THIS is the amplify loggind in usr")
+                console.log(user)
+                return <GetAuth component={DoAuth}></GetAuth>
+            }}
         </Authenticator>
     )
 }
