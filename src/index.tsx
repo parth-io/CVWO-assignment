@@ -9,7 +9,7 @@ import reportWebVitals from './reportWebVitals';
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import {store} from './redux/store';
 import {Provider} from 'react-redux';
-// import { PersistGate } from 'redux-persist/integration/react'
+import Profile from './components/Profile';
 
 ReactDOM.render(
     <Provider store={store}>
@@ -17,6 +17,7 @@ ReactDOM.render(
             <Routes>
                 <Route path="/app" element={<TopBar/>}>
                     <Route path="home" element={<MainLayout/>}/>
+                    <Route path="profile" element={<Profile/>}/>
                 </Route>
                 <Route path="/guest/login" element={<Guest/>}/>
                 <Route path="/login" element={<Authenticate/>}/>
