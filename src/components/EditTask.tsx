@@ -9,23 +9,26 @@ import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import Grid from '@mui/material/Grid';
 import {useState, MouseEvent} from 'react';
 import {API, graphqlOperation} from "aws-amplify";
-import {createTodo} from "../graphql/mutations";
-import {useAppSelector} from "../redux/hooks";
-import {selectUserName} from "../redux/userSlice";
+import {updateTodo} from "../graphql/mutations";
 import {Todo} from '../API';
-import { nanoid } from 'nanoid';
+import {listTodos} from "../graphql/queries";
+import {GraphQLResult} from "@aws-amplify/api-graphql";
+import * as APIGraphQL from "../API";
 
 interface priorityFunction {
     setPriority(priority: string): void
+    originalValue: string | null | undefined
 }
 
-interface todosState {
+interface editState {
+    setEditMode(editMode: string): void
+    editMode: string
+    todos: Array<Todo>,
     setTodos(todos: Array<Todo>): void
-    todos: Array<Todo>
 }
 
 function PriorityGroup(props: priorityFunction) {
-    const [alignment, setAlignment] = useState<string | null>('normal');
+    const [alignment, setAlignment] = useState<string | null | undefined>(props.originalValue);
 
     const handleAlignment = (
         event: MouseEvent<HTMLElement>,
@@ -52,35 +55,43 @@ function PriorityGroup(props: priorityFunction) {
     );
 }
 
-export default function NewTask(props: todosState) {
-    const userName = useAppSelector(selectUserName);
-    const initialState = {name: '', description: '', completed: false, userID: userName, priority: 'normal', deadline: ''}
-    let [formState, setFormState]: [any, any] = useState(initialState)
-    const [open, setOpen] = useState(false);
-
-    const handleClickOpen = () => {
-        setOpen(true);
-    };
+export default function EditTask(props: editState) {
+    const todoToUpdate: Todo = (props.todos.filter((x: Todo) => x.id === props.editMode))[0];
+    const initialState = todoToUpdate;
+    // console.log(initialState)
+    let [formState, setFormState]: [any, any] = useState(initialState);
+    const [open, setOpen] = useState(true);
 
     const handleClose = () => {
         setOpen(false);
+        const setEditMode = props.setEditMode;
+        setEditMode("");
     };
 
     function setPriority(priority: string) {
-        setFormState({...formState, ['priority']: priority})
+        setFormState({...formState, ['priority']: priority});
     }
 
     function setInput(key: string, value: string) {
-        setFormState({...formState, [key]: value})
+        setFormState({...formState, [key]: value});
     }
 
     const handleSubmit = async () => {
         try {
-            const todo = {...formState, id: nanoid()}
-            await API.graphql(graphqlOperation(createTodo, {input: todo}))
-            const allTodos = props.todos
-            props.setTodos([...allTodos, todo])
-            setFormState(initialState)
+            const todo = {
+                id: formState.id,
+                name: formState.name,
+                description: formState.description,
+                deadline: formState.deadline,
+                priority: formState.priority,
+                completed: formState.completed,
+                userID: formState.userID
+            };
+            await API.graphql(graphqlOperation(updateTodo, {input: todo}))
+            const todoData: GraphQLResult<APIGraphQL.ListTodosQuery> = await (API.graphql(graphqlOperation(listTodos,
+                {filter: {userID: {contains: todoToUpdate.userID}}})) as Promise<GraphQLResult<APIGraphQL.ListTodosQuery>>)
+            const todos: any = todoData.data?.listTodos?.items //Array<Todo> doens't work
+            props.setTodos(todos)
             handleClose();
         } catch (err: any) {
             console.log('error creating todo:', err.errors[0].message)
@@ -89,13 +100,10 @@ export default function NewTask(props: todosState) {
 
     return (
         <Grid
-            display="flex" justifyContent="flex-start"
+            display="flex" justifyContent="center"
         >
-            <Button variant="outlined" onClick={handleClickOpen}>
-                Create a new task
-            </Button>
             <Dialog open={open} onClose={handleClose}>
-                <DialogTitle>Create Task</DialogTitle>
+                <DialogTitle>Update Task</DialogTitle>
                 <DialogContent>
                     <TextField
                         autoFocus
@@ -104,6 +112,7 @@ export default function NewTask(props: todosState) {
                         label="Task Name"
                         type="text"
                         required={true}
+                        defaultValue={todoToUpdate.name}
                         fullWidth
                         variant="standard"
                         onChange={(event) => setInput('name', event.target.value)}
@@ -116,6 +125,7 @@ export default function NewTask(props: todosState) {
                         type="text"
                         fullWidth
                         variant="standard"
+                        defaultValue={todoToUpdate.description}
                         onChange={(event) => setInput('description', event.target.value)}
                     />
                     <TextField
@@ -126,13 +136,14 @@ export default function NewTask(props: todosState) {
                         type="date"
                         fullWidth
                         variant="standard"
+                        defaultValue={todoToUpdate.deadline}
                         onChange={(event) => setInput('deadline', String(event.target.value))}
                     />
-                    <PriorityGroup setPriority={setPriority}/>
+                    <PriorityGroup setPriority={setPriority} originalValue={todoToUpdate.priority}/>
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose}>Cancel</Button>
-                    <Button onClick={async () => await handleSubmit()}>Create</Button>
+                    <Button onClick={async () => await handleSubmit()}>Save</Button>
                 </DialogActions>
             </Dialog>
         </Grid>

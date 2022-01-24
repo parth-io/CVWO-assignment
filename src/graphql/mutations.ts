@@ -11,13 +11,9 @@ export const createUser = /* GraphQL */ `
       user
       todos {
         nextToken
-        startedAt
       }
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       owner
     }
   }
@@ -31,13 +27,9 @@ export const updateUser = /* GraphQL */ `
       user
       todos {
         nextToken
-        startedAt
       }
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       owner
     }
   }
@@ -51,13 +43,9 @@ export const deleteUser = /* GraphQL */ `
       user
       todos {
         nextToken
-        startedAt
       }
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       owner
     }
   }
@@ -79,16 +67,10 @@ export const createTodo = /* GraphQL */ `
         user
         createdAt
         updatedAt
-        _version
-        _deleted
-        _lastChangedAt
         owner
       }
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       owner
     }
   }
@@ -110,16 +92,10 @@ export const updateTodo = /* GraphQL */ `
         user
         createdAt
         updatedAt
-        _version
-        _deleted
-        _lastChangedAt
         owner
       }
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       owner
     }
   }
@@ -141,16 +117,10 @@ export const deleteTodo = /* GraphQL */ `
         user
         createdAt
         updatedAt
-        _version
-        _deleted
-        _lastChangedAt
         owner
       }
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       owner
     }
   }

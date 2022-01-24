@@ -18,10 +18,6 @@
         "cognitoUserPoolId": "authcvwoassignmenta186f81c"
       }
     ],
-    "conflictResolution": {
-      "defaultResolutionStrategy": {
-        "type": "AUTOMERGE"
-      }
-    }
+    "conflictResolution": {}
   }
 }

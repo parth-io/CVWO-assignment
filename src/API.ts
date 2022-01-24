@@ -4,7 +4,6 @@
 
 export type CreateUserInput = {
   user: string,
-  _version?: number | null,
 };
 
 export type ModelUserConditionInput = {
@@ -19,9 +18,6 @@ export type User = {
   todos?: ModelTodoConnection | null,
   createdAt: string,
   updatedAt: string,
-  _version: number,
-  _deleted?: boolean | null,
-  _lastChangedAt: number,
   owner?: string | null,
 };
 
@@ -29,7 +25,6 @@ export type ModelTodoConnection = {
   __typename: "ModelTodoConnection",
   items:  Array<Todo | null >,
   nextToken?: string | null,
-  startedAt?: number | null,
 };
 
 export type Todo = {
@@ -44,20 +39,15 @@ export type Todo = {
   user?: User | null,
   createdAt: string,
   updatedAt: string,
-  _version: number,
-  _deleted?: boolean | null,
-  _lastChangedAt: number,
   owner?: string | null,
 };
 
 export type UpdateUserInput = {
   user: string,
-  _version?: number | null,
 };
 
 export type DeleteUserInput = {
   user: string,
-  _version?: number | null,
 };
 
 export type CreateTodoInput = {
@@ -68,7 +58,6 @@ export type CreateTodoInput = {
   priority?: string | null,
   completed: boolean,
   userID: string,
-  _version?: number | null,
 };
 
 export type ModelTodoConditionInput = {
@@ -138,12 +127,10 @@ export type UpdateTodoInput = {
   priority?: string | null,
   completed?: boolean | null,
   userID?: string | null,
-  _version?: number | null,
 };
 
 export type DeleteTodoInput = {
   id: string,
-  _version?: number | null,
 };
 
 export type ModelUserFilterInput = {
@@ -163,7 +150,6 @@ export type ModelUserConnection = {
   __typename: "ModelUserConnection",
   items:  Array<User | null >,
   nextToken?: string | null,
-  startedAt?: number | null,
 };
 
 export type ModelTodoFilterInput = {
@@ -205,9 +191,6 @@ export type SearchableTodoFilterInput = {
   userID?: SearchableStringFilterInput | null,
   createdAt?: SearchableStringFilterInput | null,
   updatedAt?: SearchableStringFilterInput | null,
-  _version?: SearchableIntFilterInput | null,
-  _deleted?: SearchableBooleanFilterInput | null,
-  _lastChangedAt?: SearchableIntFilterInput | null,
   and?: Array< SearchableTodoFilterInput | null > | null,
   or?: Array< SearchableTodoFilterInput | null > | null,
   not?: SearchableTodoFilterInput | null,
@@ -252,16 +235,6 @@ export type SearchableBooleanFilterInput = {
   ne?: boolean | null,
 };
 
-export type SearchableIntFilterInput = {
-  ne?: number | null,
-  gt?: number | null,
-  lt?: number | null,
-  gte?: number | null,
-  lte?: number | null,
-  eq?: number | null,
-  range?: Array< number | null > | null,
-};
-
 export type SearchableTodoSortInput = {
   field?: SearchableTodoSortableFields | null,
   direction?: SearchableSortDirection | null,
@@ -277,9 +250,6 @@ export enum SearchableTodoSortableFields {
   userID = "userID",
   createdAt = "createdAt",
   updatedAt = "updatedAt",
-  _version = "_version",
-  _deleted = "_deleted",
-  _lastChangedAt = "_lastChangedAt",
 }
 
 
@@ -314,9 +284,6 @@ export enum SearchableTodoAggregateField {
   userID = "userID",
   createdAt = "createdAt",
   updatedAt = "updatedAt",
-  _version = "_version",
-  _deleted = "_deleted",
-  _lastChangedAt = "_lastChangedAt",
 }
 
 
@@ -365,13 +332,9 @@ export type CreateUserMutation = {
     todos?:  {
       __typename: "ModelTodoConnection",
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
     owner?: string | null,
   } | null,
 };
@@ -388,13 +351,9 @@ export type UpdateUserMutation = {
     todos?:  {
       __typename: "ModelTodoConnection",
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
     owner?: string | null,
   } | null,
 };
@@ -411,13 +370,9 @@ export type DeleteUserMutation = {
     todos?:  {
       __typename: "ModelTodoConnection",
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
     owner?: string | null,
   } | null,
 };
@@ -442,16 +397,10 @@ export type CreateTodoMutation = {
       user: string,
       createdAt: string,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
       owner?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
     owner?: string | null,
   } | null,
 };
@@ -476,16 +425,10 @@ export type UpdateTodoMutation = {
       user: string,
       createdAt: string,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
       owner?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
     owner?: string | null,
   } | null,
 };
@@ -510,16 +453,10 @@ export type DeleteTodoMutation = {
       user: string,
       createdAt: string,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
       owner?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
     owner?: string | null,
   } | null,
 };
@@ -535,13 +472,9 @@ export type GetUserQuery = {
     todos?:  {
       __typename: "ModelTodoConnection",
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
     owner?: string | null,
   } | null,
 };
@@ -562,38 +495,9 @@ export type ListUsersQuery = {
       user: string,
       createdAt: string,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
       owner?: string | null,
     } | null >,
     nextToken?: string | null,
-    startedAt?: number | null,
-  } | null,
-};
-
-export type SyncUsersQueryVariables = {
-  filter?: ModelUserFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-  lastSync?: number | null,
-};
-
-export type SyncUsersQuery = {
-  syncUsers?:  {
-    __typename: "ModelUserConnection",
-    items:  Array< {
-      __typename: "User",
-      user: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      owner?: string | null,
-    } | null >,
-    nextToken?: string | null,
-    startedAt?: number | null,
   } | null,
 };
 
@@ -616,16 +520,10 @@ export type GetTodoQuery = {
       user: string,
       createdAt: string,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
       owner?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
     owner?: string | null,
   } | null,
 };
@@ -650,44 +548,9 @@ export type ListTodosQuery = {
       userID: string,
       createdAt: string,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
       owner?: string | null,
     } | null >,
     nextToken?: string | null,
-    startedAt?: number | null,
-  } | null,
-};
-
-export type SyncTodosQueryVariables = {
-  filter?: ModelTodoFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-  lastSync?: number | null,
-};
-
-export type SyncTodosQuery = {
-  syncTodos?:  {
-    __typename: "ModelTodoConnection",
-    items:  Array< {
-      __typename: "Todo",
-      id: string,
-      name: string,
-      description?: string | null,
-      deadline?: string | null,
-      priority?: string | null,
-      completed: boolean,
-      userID: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      owner?: string | null,
-    } | null >,
-    nextToken?: string | null,
-    startedAt?: number | null,
   } | null,
 };
 
@@ -714,9 +577,6 @@ export type SearchTodosQuery = {
       userID: string,
       createdAt: string,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
       owner?: string | null,
     } | null >,
     nextToken?: string | null,
@@ -751,13 +611,9 @@ export type OnCreateUserSubscription = {
     todos?:  {
       __typename: "ModelTodoConnection",
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
     owner?: string | null,
   } | null,
 };
@@ -773,13 +629,9 @@ export type OnUpdateUserSubscription = {
     todos?:  {
       __typename: "ModelTodoConnection",
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
     owner?: string | null,
   } | null,
 };
@@ -795,13 +647,9 @@ export type OnDeleteUserSubscription = {
     todos?:  {
       __typename: "ModelTodoConnection",
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
     owner?: string | null,
   } | null,
 };
@@ -825,16 +673,10 @@ export type OnCreateTodoSubscription = {
       user: string,
       createdAt: string,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
       owner?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
     owner?: string | null,
   } | null,
 };
@@ -858,16 +700,10 @@ export type OnUpdateTodoSubscription = {
       user: string,
       createdAt: string,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
       owner?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
     owner?: string | null,
   } | null,
 };
@@ -891,16 +727,10 @@ export type OnDeleteTodoSubscription = {
       user: string,
       createdAt: string,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
       owner?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
     owner?: string | null,
   } | null,
 };

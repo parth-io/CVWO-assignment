@@ -20,6 +20,10 @@
         "todo": {
           "deploymentBucketName": "amplify-cvwoassignment-dev-180013-deployment",
           "s3Key": "amplify-builds/todo-426574646a6753794d34-build.zip"
+        },
+        "generateBackup": {
+          "deploymentBucketName": "amplify-cvwoassignment-dev-180013-deployment",
+          "s3Key": "amplify-builds/generateBackup-652b694f6c30526e6a57-build.zip"
         }
       },
       "hosting": {
