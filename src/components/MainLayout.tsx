@@ -103,7 +103,7 @@ export default function MainLayout() {
             {editMode !== "" ? <EditTask todos={todos} setTodos={setTodos} editMode={editMode}
                                          setEditMode={setEditMode}></EditTask> : null}
             {
-                todos.filter(filterBySearch).map((todo: any, index: any) => (
+                todos.filter(filterBySearch).map((todo: Todo, index: any) => (
                     <Card key={todo.id} style={todo.priority === 'urgent' ? {backgroundColor: "red"} : {}}>
                         <CardActionArea id={todo.id}
                                         onClick={(e: MouseEvent<HTMLElement>) => handleTaskEdit(e.currentTarget.id)}>
