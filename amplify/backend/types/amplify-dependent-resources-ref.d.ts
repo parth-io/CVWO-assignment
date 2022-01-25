@@ -11,12 +11,6 @@ export type AmplifyDependentResourcesAttributes = {
         }
     },
     "function": {
-        "todo": {
-            "Name": "string",
-            "Arn": "string",
-            "Region": "string",
-            "LambdaExecutionRole": "string"
-        },
         "generateBackup": {
             "Name": "string",
             "Arn": "string",

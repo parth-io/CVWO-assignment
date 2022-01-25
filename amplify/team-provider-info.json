@@ -17,13 +17,9 @@
         "cvwoassignmenta186f81c": {}
       },
       "function": {
-        "todo": {
-          "deploymentBucketName": "amplify-cvwoassignment-dev-180013-deployment",
-          "s3Key": "amplify-builds/todo-426574646a6753794d34-build.zip"
-        },
         "generateBackup": {
           "deploymentBucketName": "amplify-cvwoassignment-dev-180013-deployment",
-          "s3Key": "amplify-builds/generateBackup-664d562f6b48652b6d4c-build.zip"
+          "s3Key": "amplify-builds/generateBackup-59463850476e302f386b-build.zip"
         }
       },
       "hosting": {

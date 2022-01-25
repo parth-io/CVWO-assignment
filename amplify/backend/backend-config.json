@@ -28,12 +28,6 @@
     }
   },
   "function": {
-    "todo": {
-      "build": true,
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda",
-      "dependsOn": []
-    },
     "generateBackup": {
       "build": true,
       "providerPlugin": "awscloudformation",

@@ -15,16 +15,11 @@ type MyEvent struct {
 }
 
 func HandleRequest(ctx context.Context, name MyEvent) (string, error) {
-	return fmt.Sprintf("Hello %s!", name.Name), nil
-}
-
-func main() {
-	lambda.Start(HandleRequest)
 	// Using the SDK's default configuration, loading additional config
 	// and credentials values from the environment variables, shared
 	// credentials, and shared configuration files
 	cfg, err := config.LoadDefaultConfig(context.TODO(),
-		config.WithRegion("us-west-2"),
+		config.WithRegion("ap-southeast-1"),
 	)
 	if err != nil {
 		log.Fatalf("unable to load SDK config, %v", err)
@@ -45,4 +40,9 @@ func main() {
 	for _, tableName := range resp.TableNames {
 		fmt.Println(tableName)
 	}
+	return fmt.Sprintf("Hello %s!", name.Name), nil
+}
+
+func main() {
+	lambda.Start(HandleRequest)
 }
