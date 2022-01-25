@@ -83,6 +83,7 @@ export default function EditTask(props: editState) {
                 name: formState.name,
                 description: formState.description,
                 deadline: formState.deadline,
+                category: formState.category,
                 priority: formState.priority,
                 completed: formState.completed,
                 userID: formState.userID
@@ -138,6 +139,17 @@ export default function EditTask(props: editState) {
                         variant="standard"
                         defaultValue={todoToUpdate.deadline}
                         onChange={(event) => setInput('deadline', String(event.target.value))}
+                    />
+                    <TextField
+                        autoFocus
+                        margin="normal"
+                        id="category"
+                        label="Category"
+                        type="text"
+                        fullWidth
+                        variant="standard"
+                        defaultValue={todoToUpdate.category}
+                        onChange={(event) => setInput('category', String(event.target.value))}
                     />
                     <PriorityGroup setPriority={setPriority} originalValue={todoToUpdate.priority}/>
                 </DialogContent>

@@ -62,6 +62,7 @@ export const createTodo = /* GraphQL */ `
       deadline
       priority
       completed
+      category
       userID
       user {
         user
@@ -87,6 +88,7 @@ export const updateTodo = /* GraphQL */ `
       deadline
       priority
       completed
+      category
       userID
       user {
         user
@@ -112,6 +114,7 @@ export const deleteTodo = /* GraphQL */ `
       deadline
       priority
       completed
+      category
       userID
       user {
         user

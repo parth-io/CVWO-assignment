@@ -128,6 +128,16 @@ export default function NewTask(props: todosState) {
                         variant="standard"
                         onChange={(event) => setInput('deadline', String(event.target.value))}
                     />
+                    <TextField
+                        autoFocus
+                        margin="normal"
+                        id="category"
+                        label="Category"
+                        type="text"
+                        fullWidth
+                        variant="standard"
+                        onChange={(event) => setInput('category', event.target.value)}
+                    />
                     <PriorityGroup setPriority={setPriority}/>
                 </DialogContent>
                 <DialogActions>

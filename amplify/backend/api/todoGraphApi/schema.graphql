@@ -11,6 +11,7 @@ type Todo @model @searchable @auth(rules: [{allow: groups, groups: ["Unauthentic
   deadline: String
   priority: String
   completed: Boolean!
+  category: String
   userID: String! @index(name: "byUser")
   user: User @belongsTo(fields: ["userID"])
 }

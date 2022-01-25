@@ -50,6 +50,7 @@ export const onCreateTodo = /* GraphQL */ `
       deadline
       priority
       completed
+      category
       userID
       user {
         user
@@ -72,6 +73,7 @@ export const onUpdateTodo = /* GraphQL */ `
       deadline
       priority
       completed
+      category
       userID
       user {
         user
@@ -94,6 +96,7 @@ export const onDeleteTodo = /* GraphQL */ `
       deadline
       priority
       completed
+      category
       userID
       user {
         user

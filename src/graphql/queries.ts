@@ -49,6 +49,7 @@ export const getTodo = /* GraphQL */ `
       deadline
       priority
       completed
+      category
       userID
       user {
         user
@@ -76,6 +77,7 @@ export const listTodos = /* GraphQL */ `
         deadline
         priority
         completed
+        category
         userID
         createdAt
         updatedAt
@@ -109,6 +111,7 @@ export const searchTodos = /* GraphQL */ `
         deadline
         priority
         completed
+        category
         userID
         createdAt
         updatedAt

@@ -3,7 +3,7 @@ import type {GraphQLResult} from '@aws-amplify/api-graphql';
 import {listTodos, getUser} from '../graphql/queries';
 import {createUser, deleteTodo, updateTodo} from '../graphql/mutations';
 import * as APIGraphQL from '../API';
-import {useState, useEffect, MouseEvent} from 'react';
+import {useState, useEffect, MouseEvent, ReactElement, cloneElement} from 'react';
 import {useAppSelector} from '../redux/hooks'
 import {selectUserName} from '../redux/userSlice'
 import type {Todo} from '../API';
@@ -70,6 +70,7 @@ export default function MainLayout() {
                 deadline: currentTodo.deadline,
                 priority: currentTodo.priority,
                 completed: currentTodo.completed,
+                category: currentTodo.category,
                 userID: currentTodo.userID
             };
             completedTodo.completed = !completedTodo.completed;
@@ -88,7 +89,7 @@ export default function MainLayout() {
     }
 
     const filterBySearch = (todo: any) => {
-        const properties = ['name', 'description', 'deadline', 'priority']
+        const properties = ['name', 'description', 'deadline', 'priority', 'category']
         for (let i = 0; i < properties.length; i++) {
             const prop = properties[i];
             if (todo[prop].toLowerCase().includes(searchState)) {
@@ -112,7 +113,7 @@ export default function MainLayout() {
                                     <p>{todo.name}</p>
                                     <p>{todo.description}</p>
                                     <p>{todo.deadline}</p>
-                                    <p>{todo.priority}</p>
+                                    <p>{todo.category}</p>
                                 </Typography>
                             </CardContent>
                         </CardActionArea>
