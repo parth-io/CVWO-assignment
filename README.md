@@ -11,10 +11,6 @@ The live app is [here.](https://dev.d3saygurv1bu0j.amplifyapp.com/)
 
 This project is hosted on AWS Amplify and  was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Tech Stack
-1. AWS - Amplify (hosting) + DynamoDB (database) + Lambda (serverless function) + Cogito (authentication)
-2. GraphQL (Appsync) + Go for the backend
-
 ## Local Set-up
 
 ### Dependencies for development
@@ -40,3 +36,15 @@ You will require an AWS account.
 ~ npm start
 ```
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+
+## Project Details
+1. Frontend - AWS Amplify (hosting)
+2. Backend - GraphQL (AWS Appsync), DynamoDB (database), Lambda (serverless function) in Golang, Cogito (authentication)
+
+Some libraries used
+1. React Router
+2. Material UI
+3. Lodash (for its `debounce` function)
+4. Redux
+
+AWS Cloudwatch Cron Job Rules are [here](https://github.com/parth-io/CVWO-assignment/blob/1551973ec6c0a0ab75a9bc3115b753d75c92e10a/amplify/backend/function/generateBackup/parameters.json).
