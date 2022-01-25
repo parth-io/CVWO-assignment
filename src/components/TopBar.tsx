@@ -21,14 +21,14 @@ import {useAppDispatch} from "../redux/hooks";
 import {setSearchString} from "../redux/searchSlice";
 
 const Search = styled('div')(({theme}) => ({
+    width: '100%',
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
+    marginLeft: 0,
     backgroundColor: alpha(theme.palette.common.white, 0.15),
     '&:hover': {
         backgroundColor: alpha(theme.palette.common.white, 0.25),
     },
-    marginLeft: 0,
-    width: '100%',
     [theme.breakpoints.up('sm')]: {
         marginLeft: theme.spacing(1),
         width: 'auto',
@@ -36,22 +36,22 @@ const Search = styled('div')(({theme}) => ({
 }));
 
 const SearchIconWrapper = styled('div')(({theme}) => ({
-    padding: theme.spacing(0, 2),
+    justifyContent: 'center',
     height: '100%',
     position: 'absolute',
     pointerEvents: 'none',
+    padding: theme.spacing(0, 2),
     display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: 'center'
 }));
 
 const StyledInputBase = styled(InputBase)(({theme}) => ({
     color: 'inherit',
     '& .MuiInputBase-input': {
+        paddingLeft: `calc(1em + ${theme.spacing(4)})`,
         transition: theme.transitions.create('width'),
         padding: theme.spacing(1, 1, 1, 0),
         width: '100%',
-        paddingLeft: `calc(1em + ${theme.spacing(4)})`,
         [theme.breakpoints.up('sm')]: {
             width: '12ch',
             '&:focus': {

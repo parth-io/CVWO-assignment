@@ -16,8 +16,6 @@ Amplify.configure({
 })
 // AWS.config.correctClockSkew = true
 
-// todo add to readme amplify auth, go, graphql, material UI, unauth, serviceworker, redux, also when user logs in, state changes and component rerenders
-//todo use button base
 const panels = [
     {
         title: '"I am a guest"',
@@ -32,56 +30,56 @@ const panels = [
 ];
 
 const PanelButton = styled(ButtonBase)(({theme}) => ({
-    position: 'relative',
     height: 200,
+    position: 'relative',
     [theme.breakpoints.down('sm')]: {
-        width: '100% !important', // Overrides inline-style
         height: 200,
+        width: '100% !important'
     },
     '&:hover, &.Mui-focusVisible': {
         zIndex: 1,
+        '& .MuiTypography-root': {
+            border: '4px solid currentColor',
+        },
         '& .MuiImageBackdrop-root': {
             opacity: 0.15,
         },
         '& .MuiImageMarked-root': {
             opacity: 0,
-        },
-        '& .MuiTypography-root': {
-            border: '4px solid currentColor',
         }
     }
 }));
 
 const Panel = styled('span')(({ theme }) => ({
-    position: 'absolute',
+    alignItems: 'center',
+    color: theme.palette.common.white,
+    justifyContent: 'center',
     left: 0,
     right: 0,
     top: 0,
     bottom: 0,
     display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    color: theme.palette.common.white,
+    position: 'absolute',
 }));
 
 const PanelBackdrop = styled('span')(({theme}) => ({
-    position: 'absolute',
+    backgroundColor: 'blue',
+    opacity: 0.67,
     left: 0,
     right: 0,
     top: 0,
     bottom: 0,
-    backgroundColor: 'blue',
-    opacity: 0.67,
+    position: 'absolute',
     transition: theme.transitions.create('opacity'),
 }));
 
 const PanelMarked = styled('span')(({ theme }) => ({
     height: 3,
     width: 18,
-    backgroundColor: theme.palette.common.white,
-    position: 'absolute',
     bottom: -2,
     left: 'calc(50% - 9px)',
+    backgroundColor: theme.palette.common.white,
+    position: 'absolute',
     transition: theme.transitions.create('opacity'),
 }));
 

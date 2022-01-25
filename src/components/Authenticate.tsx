@@ -13,8 +13,6 @@ const DoAuth = (props: any): JSX.Element => {
     )
 }
 
-//todo fix UI styling
-//todo fix sign out button doesn't disappear/appear after logging out unless page is refreshed
 const Authenticate = (): JSX.Element => {
     return (
         <Authenticator variation="modal">

@@ -13,7 +13,6 @@ import Button from '@mui/material/Button'
 // import {ButtonGroup, Box, List, Collapse, ListItemText, ListItemIcon, ListItemButton} from '@mui/material';
 
 export default function Profile() {
-    //todo shift this into useEffect, so when user signs out and component rerenders, initialState is updated to the new user
     const userName = useAppSelector(selectUserName);
     let [todos, setTodos]: [Array<Todo>, any] = useState([])
     useEffect(() => {

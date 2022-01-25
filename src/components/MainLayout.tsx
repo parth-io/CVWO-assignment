@@ -3,7 +3,7 @@ import type {GraphQLResult} from '@aws-amplify/api-graphql';
 import {listTodos, getUser} from '../graphql/queries';
 import {createUser, deleteTodo, updateTodo} from '../graphql/mutations';
 import * as APIGraphQL from '../API';
-import {useState, useEffect, MouseEvent, ReactElement, cloneElement} from 'react';
+import {useState, useEffect, MouseEvent} from 'react';
 import {useAppSelector} from '../redux/hooks'
 import {selectUserName} from '../redux/userSlice'
 import type {Todo} from '../API';
@@ -18,7 +18,6 @@ import {selectSearchState} from "../redux/searchSlice";
 import Typography from '@mui/material/Typography';
 
 export default function MainLayout() {
-    //todo shift this into useEffect, so when user signs out and component rerenders, initialState is updated to the new user
     const userName = useAppSelector(selectUserName);
     const searchState = useAppSelector(selectSearchState);
     let [todos, setTodos]: [Array<Todo>, any] = useState([])
