@@ -70,7 +70,7 @@ function SearchWrapper(): JSX.Element {
         setSearchText(searchString);
     }
     const debounced = useRef(
-        debounce((searchString) => conductSearch(searchString), 500)
+        debounce((searchString: string) => conductSearch(searchString), 500)
     ).current;
     const handleSearch = async (searchString: string) => {
         debounced(searchString);
