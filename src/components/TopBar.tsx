@@ -1,6 +1,6 @@
 import Button from '@mui/material/Button';
 import {Auth} from 'aws-amplify';
-import * as React from 'react';
+import {useState, MouseEvent, useEffect, useRef} from 'react';
 import {styled, alpha} from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -11,10 +11,14 @@ import InputBase from '@mui/material/InputBase';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import {useNavigate, Outlet} from "react-router-dom";
-import {useAppSelector} from '../redux/hooks'
-import {selectAuthState} from '../redux/userSlice'
+import {useAppSelector} from '../redux/hooks';
+import {selectAuthState} from '../redux/userSlice';
+import {selectSearchState} from '../redux/searchSlice';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
+import debounce from 'lodash/debounce';
+import {useAppDispatch} from "../redux/hooks";
+import {setSearchString} from "../redux/searchSlice";
 
 const Search = styled('div')(({theme}) => ({
     position: 'relative',
@@ -44,11 +48,10 @@ const SearchIconWrapper = styled('div')(({theme}) => ({
 const StyledInputBase = styled(InputBase)(({theme}) => ({
     color: 'inherit',
     '& .MuiInputBase-input': {
-        padding: theme.spacing(1, 1, 1, 0),
-        // vertical padding + font size from searchIcon
-        paddingLeft: `calc(1em + ${theme.spacing(4)})`,
         transition: theme.transitions.create('width'),
+        padding: theme.spacing(1, 1, 1, 0),
         width: '100%',
+        paddingLeft: `calc(1em + ${theme.spacing(4)})`,
         [theme.breakpoints.up('sm')]: {
             width: '12ch',
             '&:focus': {
@@ -58,13 +61,43 @@ const StyledInputBase = styled(InputBase)(({theme}) => ({
     },
 }));
 
+function SearchWrapper(): JSX.Element {
+    let [searchText, setSearchText] = useState('');
+    const dispatch = useAppDispatch();
+    dispatch(setSearchString(searchText.toLowerCase()));
+    // const searchState = useAppSelector(selectSearchState);
+    const conductSearch = (searchString: string) => {
+        setSearchText(searchString);
+    }
+    const debounced = useRef(
+        debounce((searchString) => conductSearch(searchString), 500)
+    ).current;
+    const handleSearch = async (searchString: string) => {
+        debounced(searchString);
+    };
+    useEffect(() => {
+        return () => {
+            debounced.cancel();
+        };
+    }, [debounced]);
+    return (<Search>
+        <SearchIconWrapper>
+            <SearchIcon/>
+        </SearchIconWrapper>
+        <StyledInputBase
+            placeholder="Search…"
+            onChange={(event) => handleSearch(event.target.value)}
+            inputProps={{'aria-label': 'search'}}
+        />
+    </Search>)
+}
 
 export default function TopBar() {
     const navigate = useNavigate();
     const userAuthState = useAppSelector(selectAuthState);
-    const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
-    const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+    const handleClick = (event: MouseEvent<HTMLElement>) => {
         setAnchorEl(event.currentTarget);
     };
     const handleProfile = () => {
@@ -120,15 +153,7 @@ export default function TopBar() {
                         >
                             To-Do App
                         </Typography>
-                        <Search>
-                            <SearchIconWrapper>
-                                <SearchIcon/>
-                            </SearchIconWrapper>
-                            <StyledInputBase
-                                placeholder="Search…"
-                                inputProps={{'aria-label': 'search'}}
-                            />
-                        </Search>
+                        <SearchWrapper/>
                         <div> {userAuthState ? <Button
                             size="large"
                             color="inherit"

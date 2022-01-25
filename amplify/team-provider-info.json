@@ -23,7 +23,7 @@
         },
         "generateBackup": {
           "deploymentBucketName": "amplify-cvwoassignment-dev-180013-deployment",
-          "s3Key": "amplify-builds/generateBackup-652b694f6c30526e6a57-build.zip"
+          "s3Key": "amplify-builds/generateBackup-664d562f6b48652b6d4c-build.zip"
         }
       },
       "hosting": {

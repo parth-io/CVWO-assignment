@@ -50,20 +50,6 @@
     }
   },
   "api": {
-    "todoAPI": {
-      "service": "API Gateway",
-      "providerPlugin": "awscloudformation",
-      "dependsOn": [
-        {
-          "category": "function",
-          "resourceName": "todo",
-          "attributes": [
-            "Name",
-            "Arn"
-          ]
-        }
-      ]
-    },
     "todoGraphApi": {
       "service": "AppSync",
       "providerPlugin": "awscloudformation",

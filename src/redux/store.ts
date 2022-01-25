@@ -1,10 +1,12 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import userReducer from './userSlice';
+import searchReducer from './searchSlice'
 
 export const store = configureStore({
     reducer: {
         user: userReducer,
-    },
+        search: searchReducer
+    }
 })
 
 // Infer the `RootState` and `AppDispatch` types from the store itself

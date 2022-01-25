@@ -1,4 +1,4 @@
-import Amplify, {API, graphqlOperation, Auth, AuthModeStrategyType} from 'aws-amplify';
+import Amplify, { AuthModeStrategyType} from 'aws-amplify';
 import {useNavigate} from "react-router-dom";
 import * as React from 'react';
 import {styled} from '@mui/material/styles';
@@ -6,11 +6,7 @@ import ButtonBase from '@mui/material/ButtonBase';
 import Typography from '@mui/material/Typography';
 import awsExports from "./aws-exports";
 import '@aws-amplify/ui-react/styles.css';
-import {Button, ButtonGroup, Box, List, Collapse, ListItemText, ListItemIcon, ListItemButton} from '@mui/material';
-// import AWS from 'aws-sdk'
-// theme
-import ThemeConfig from './theme';
-import GlobalStyles from './theme/globalStyles';
+import Box from '@mui/material/Box';
 
 Amplify.configure({
     ...awsExports,
@@ -22,18 +18,6 @@ Amplify.configure({
 
 // todo add to readme amplify auth, go, graphql, material UI, unauth, serviceworker, redux, also when user logs in, state changes and component rerenders
 //todo use button base
-// <ThemeConfig>
-//     <ScrollToTop />
-//     <GlobalStyles />
-//     <BaseOptionChartStyle />
-//         <Routes>
-//             <Route path="/" element={<HomeApp />} />
-//             <Route path="about" element={<About />} />
-//         </Routes>
-// </ThemeConfig>
-// );
-// }
-
 const panels = [
     {
         title: '"I am a guest"',
